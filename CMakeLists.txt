@@ -22,3 +22,7 @@ file(GLOB AES_SOURCE_FILES AES/AES.cpp)
 
 add_library(wzlibcpp ${SOURCE_FILES} ${AES_SOURCE_FILES})
 target_link_libraries(ZLIB::ZLIB)
+
+add_executable(crackimg crackimg/main.cc)
+
+target_link_libraries(crackimg wzlibcpp)

@@ -1,4 +1,5 @@
 /.vs
+/.vscode
 /Debug
 /Release
 /x64
@@ -6,7 +7,8 @@
 /cmake-build-debug
 /.idea
 /build
-
+/crackimg/*.img
+/crackimg/*.wz
 *.sln
 *.vcproj
 *.vcxproj

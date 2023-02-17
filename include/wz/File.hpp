@@ -21,6 +21,19 @@ namespace wz {
         [[maybe_unused]]
         bool parse();
 
+        [[maybe_unused]]
+        Reader& get_reader() {
+            return reader;
+        }
+        
+        [[maybe_unused]]
+        void set_iv(const std::initializer_list<u8>& new_iv) {
+            iv = new u8[4];
+            memcpy(iv, new_iv.begin(), 4);
+            init_key();
+            reader.set_key(key);
+        }
+
         [[maybe_unused]] [[nodiscard]]
         Node* get_root() const;
         Node& get_child(const wzstring& name);

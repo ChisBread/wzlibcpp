@@ -70,6 +70,8 @@ namespace wz {
 
         [[nodiscard]]
         bool is_wz_image();
+        [[nodiscard]]
+        bool is_has_property();
 
         void set_key(MutableKey& new_key);
 

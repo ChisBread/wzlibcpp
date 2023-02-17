@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cassert>
 #include <vector>
 #include <codecvt>
@@ -136,6 +137,14 @@ bool wz::Reader::is_wz_image() {
     if (read<u8>() != 0x73) return false;
     if (read_wz_string() != u"Property") return false;
     if (read<u16>() != 0) return false;
+    return true;
+}
+
+bool wz::Reader::is_has_property() {
+    auto byte1 =  read<u8>();
+    auto readstr = read_wz_string();
+    auto byte2 = read<u16>();
+    if (readstr != u"Property") return false;
     return true;
 }
 

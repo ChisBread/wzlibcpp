@@ -8,6 +8,8 @@ if (WIN32)
     include(${VCPKG_CMAKE_PATH})
 endif (WIN32)
 
+set (CMAKE_CXX_FLAGS   "${CMAKE_CXX_FLAGS} -fpermissive")
+
 find_package(ZLIB REQUIRED)
 
 include_directories(

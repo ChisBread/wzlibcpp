@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
     // parse argv
     if (argc > 2) {
         auto cmd = std::string(argv[2]);
-        if (cmd == "-q" || cmd == "-qiv") {
+        if (cmd == "-q" || cmd == "-qiv" || cmd == "-qivr") {
             quiet = true;
         } 
         if (argc > 3 && (cmd == "-iv" || cmd == "-qiv" || cmd == "-ivr" || cmd == "-qivr")) {

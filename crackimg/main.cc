@@ -38,7 +38,7 @@ int main(int argc, char** argv) {
         return -1;
     }
     uint8_t iv[] = IV4(0x4D, 0x23, 0xC7, 1);
-    uint64_t ivend = 0;
+    uint64_t ivend = 0xFFFFFFFF;
     auto filepath = std::string(argv[1]);
     bool quiet = false;
     bool iswz = false;
@@ -51,12 +51,20 @@ int main(int argc, char** argv) {
         if (argc > 3 && (cmd == "-iv" || cmd == "-qiv" || cmd == "-ivr" || cmd == "-qivr")) {
             uint64_t ivhex;
             std::istringstream iss(argv[3]);
-            iss >> std::hex >> ivhex;
+            if(argv[3][0] == '0' && argv[3][1] == 'x') {
+                iss >> std::hex >> ivhex;
+            } else {
+                iss >> std::oct >> ivhex;
+            }
             u642iv(ivhex, iv);
         }
         if (argc > 4 && (cmd == "-ivr" || cmd == "-qivr")) {
             std::istringstream iss(argv[4]);
-            iss >> std::hex >> ivend;
+            if(argv[4][0] == '0' && argv[4][1] == 'x') {
+                iss >> std::hex >> ivend;
+            } else {
+                iss >> std::oct >> ivend;
+            }
         }
         if (filepath[filepath.size()-2] == 'w' && filepath[filepath.size()-1] == 'z') {
             iswz = true;
@@ -79,12 +87,13 @@ int main(int argc, char** argv) {
             // wz file
             iscracked = file.parse();
         }
+        
         if (!quiet) {
             std::cout << "cracking: " << argv[1] << " res: " << iscracked << " the IV: " << std::hex;
             for (auto i : iv) {
                 std::cout << "0x" << int(i) << " ";
             }
-            std::cout << "left: " << uint64_t(0xFFFFFFFF)-ivhex << std::endl;
+            std::cout << "left: " << ivend-ivhex << std::endl;
         } 
         reader.set_position(0);
     } while(!(iscracked || !nextiv(iv)));
